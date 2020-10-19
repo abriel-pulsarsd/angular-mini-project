@@ -1,3 +1,11 @@
+<!-- <button (click)="getDataFromAPI()">Get Data</button>
+<ul *ngFor="let d of data">
+  <li>{{d.id}}</li>
+  <li>{{d.name}}</li>
+  <li>{{d.email}}</li>
+</ul> -->
+
+<hr>
 <mat-form-field>
     <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search User Account...">
 </mat-form-field>
@@ -10,21 +18,21 @@
           The actual rendered columns are set as a property on the row definition" -->
   
     <!-- ID Column -->
-    <ng-container matColumnDef="userId">
+    <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+      <td mat-cell *matCellDef="let user"> {{user.id}} </td>
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-cell *matCellDef="let user"> {{user.name}} </td>
     </ng-container>
   
     <!-- Email Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      <td mat-cell *matCellDef="let user"> {{user.email}} </td>
     </ng-container>
   
     <!-- Third Step: Inlude the header and row definitions -->
@@ -32,9 +40,7 @@
     <tr mat-row (click)="logData(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
-
-  </mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
 
   
