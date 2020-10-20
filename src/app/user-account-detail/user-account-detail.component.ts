@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserAccountService } from '../user-account.service';
 import { UserAccount } from '../user-account';
-import { map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -25,6 +25,31 @@ export class UserAccountDetailComponent implements OnInit {
     this.userAccounts = new Array<UserAccount>();
   }
 
+  //get specific useraccount info
+  getSpecificUserInfo() {
+    this._userAccountService.getUserAccounts()
+    .pipe(map(data => {
+      return data.find(data => this.selectedId === data.id);
+    })).subscribe(data => {
+      this.userAccountInfo = [data];
+    });
+  }
+
+  /*
+  * Routing 
+  */
+  //on select User Account
+  onSelect(UserAccount) {
+    //this.router.navigate(['/user-account-list', UserAccount.id]);
+    this.router.navigate(['/user-account-list', UserAccount.id, {id: UserAccount.id}], {relativeTo: this.route});
+    this.getSpecificUserInfo();
+  }
+  
+  //selected User Account
+  isSelected(UserAccount) {
+    return UserAccount.id === this.selectedId;
+  }
+
   ngOnInit() {
     //routing
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -33,18 +58,11 @@ export class UserAccountDetailComponent implements OnInit {
       //console.log(this.selectedId = id);
     });
 
-   
     //fetch useraccounts info
     this._userAccountService.getUserAccounts().subscribe((data) => {
       this.userAccounts = data;
     });
 
-    //get specific useraccount info
-    this._userAccountService.getUserAccounts()
-    .pipe(map(data => {
-      return data.find(data => this.selectedId === data.id);
-    })).subscribe(data => {
-      this.userAccountInfo = [data];
-    });
+    this.getSpecificUserInfo();
   }
 }

@@ -55,16 +55,7 @@ export class UserAccountListComponent implements AfterViewInit, OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
-  //data source
-  getDataFromAPI() {
-    throw new Error('Not implemented yet');
-  }
-  //data source
-  logData(row) {
-   //console.log(row);
-   throw new Error('Not implemented yet');
-  }
-
+  
   /*
   * Routing 
   */
@@ -76,4 +67,15 @@ export class UserAccountListComponent implements AfterViewInit, OnInit {
   isSelected(UserAccount) {
     return UserAccount.id === this.selectedId;
   }
+
+  //data source
+  getDataFromAPI() {
+    throw new Error('Not implemented yet');
+  }
+  //data source
+  logData(row) {
+   //console.log(row);
+   throw new Error('Not implemented yet');
+  }
+
 }

@@ -1,0 +1,34 @@
+.main {
+  background: #ffd5b8;
+  margin-bottom: 10px;
+}
+.side {
+  background: #ffe9c4;
+}
+.main,
+.side {
+  padding: 2%;
+  border-radius: 5px
+}
+
+@media ( min-width : 600px ){
+	.flexbox {
+    display: -webkit-flex;
+    display: flex;
+    margin:20px;
+	}
+  .main {
+    margin: 0 10px 0 0;
+  }
+}
+
+mat-list mat-list-item.selected {
+  background-color:#f44336 !important;
+  color:white;
+  border-left:3px solid #000000;
+}
+
+mat-list .userAccountFocus {
+  background-color:white;
+  cursor:pointer;
+}
