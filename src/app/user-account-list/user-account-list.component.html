@@ -1,18 +1,11 @@
-<!-- <button (click)="getDataFromAPI()">Get Data</button>
-<ul *ngFor="let d of data">
-  <li>{{d.id}}</li>
-  <li>{{d.name}}</li>
-  <li>{{d.email}}</li>
-</ul> -->
+<div class="mat-elevation-z8" style="padding:20px;margin:20px;">
 
-<hr>
-<mat-form-field>
-    <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search User Account...">
-</mat-form-field>
+  <mat-form-field>
+      <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search User Account...">
+  </mat-form-field>
 
-<div class="mat-elevation-z8">
-<!-- Second step: define the column templates -->
-<table mat-table [dataSource]="dataSource" matSort>
+  <!-- Second step: define the column templates -->
+  <table mat-table [dataSource]="dataSource" matSort>
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->

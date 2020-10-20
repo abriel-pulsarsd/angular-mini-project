@@ -13,13 +13,13 @@ const routes: Routes = [
   { path: 'user-account-list', component: UserAccountListComponent},
   { 
     path: 'user-account-list/:id',  
-    //component: UserAccountDetailComponent,
+    component: UserAccountDetailComponent,
     children: [
       //{ path: 'overview', component: DepartmentOverviewComponent},
       //{ path: 'contact', component: DepartmentContactComponent}
     ]
   },
-  { path: 'user-account-detail', component: UserAccountDetailComponent},
+  //{ path: 'user-account-detail', component: UserAccountDetailComponent},
   //{ path: "**", component: PageNotFoundComponent}
 ];
 

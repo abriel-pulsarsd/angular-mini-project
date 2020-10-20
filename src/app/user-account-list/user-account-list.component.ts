@@ -57,7 +57,12 @@ export class UserAccountListComponent implements AfterViewInit, OnInit {
   }
   //data source
   getDataFromAPI() {
-    throw new Error('Not implemented yet');
+    //throw new Error('Not implemented yet');
+    //user accounts data source
+    // this._userAccountService.getUserAccounts().subscribe((data) => {
+    //   console.log(data);
+    //   this.data = data;
+    // }); 
   }
   //data source
   logData(row) {
