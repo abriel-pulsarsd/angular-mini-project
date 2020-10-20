@@ -37,7 +37,7 @@
   
     <!-- Third Step: Inlude the header and row definitions -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row (click)="logData(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row (click)="onSelect(row)" [class.selected]="isSelected(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

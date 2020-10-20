@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppRoutingModule, routingComponents } from './app-routing.module';
 
 //Angular Material Components
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -40,14 +41,20 @@ import {MatTableModule} from '@angular/material/table'; //import data table
 import {MatSortModule} from '@angular/material/sort'; //import sorting data Table
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {LayoutModule} from '@angular/cdk/layout';
-import { UserAccountListComponent } from './user-account-list/user-account-list.component';
+
 
 import { UserAccountService } from './user-account.service';
+
+import { UserAccountDetailComponent } from './user-account-detail/user-account-detail.component';
+import { UserAccountListComponent } from './user-account-list/user-account-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserAccountListComponent
+    UserAccountListComponent,
+    UserAccountDetailComponent,
+    routingComponents
   ],
   imports: [
     BrowserModule,
@@ -85,7 +92,8 @@ import { UserAccountService } from './user-account.service';
     MatPaginatorModule,
     LayoutModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [UserAccountService],
   bootstrap: [AppComponent]
