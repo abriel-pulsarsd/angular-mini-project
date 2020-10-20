@@ -12,16 +12,15 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class UserAccountDetailComponent implements OnInit {
 
-  //for id for routing
+  //id for routing
   public selectedId;
 
-  //for 
+  //specific useraccountinfo
   public userAccountInfo = [];
 
-  //set array data source
+  //array useraccountinfo data source
   userAccounts:Array<UserAccount>;
   
-
   constructor(private _userAccountService: UserAccountService, private router: Router, private route: ActivatedRoute) { 
     this.userAccounts = new Array<UserAccount>();
   }

@@ -15,17 +15,17 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 
 export class UserAccountListComponent implements AfterViewInit, OnInit {
-  //set id for routing
+  //id for routing
   public selectedId;
 
-  //set user accounts data table
+  //user accounts data table
   displayedColumns: string[] = ['id', 'name', 'email'];
   dataSource; 
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  //set array data source
+  //array useraccountinfo data source
   data:Array<UserAccount>;
   
   constructor(private _userAccountService: UserAccountService, private router: Router, private route: ActivatedRoute) { 
@@ -57,12 +57,7 @@ export class UserAccountListComponent implements AfterViewInit, OnInit {
   }
   //data source
   getDataFromAPI() {
-    //throw new Error('Not implemented yet');
-    //user accounts data source
-    // this._userAccountService.getUserAccounts().subscribe((data) => {
-    //   console.log(data);
-    //   this.data = data;
-    // }); 
+    throw new Error('Not implemented yet');
   }
   //data source
   logData(row) {
