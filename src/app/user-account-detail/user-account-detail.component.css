@@ -46,12 +46,23 @@ mat-list .userAccountFocus {
   display:none;
 }
 
+.successfully-saved {
+  display:block !important;
+  background-color:#38d185;
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin:10px;
+  font-size:16px;
+  border-radius:5px;
+}
+
 .validate-required {
   display:block !important;
   background-color:#e0555a;
   color:white;
   text-align:center;
-  padding:20px;
+  padding:10px;
   margin:10px;
   font-size:16px;
   border-radius:5px;

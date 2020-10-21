@@ -9,18 +9,18 @@
     <section class="side">
       <div *ngFor="let userInfo of userAccountInfo">
         <h2>User Details</h2>
-        <form #userForm="ngForm">
+        <form #userForm="ngForm" (ngSubmit)="btnOnSubmit()">
           <mat-card>
             <!-- <mat-card-title fxLayoutAlign="center">User Details</mat-card-title> -->
               <div class="user-form">
                 <div style="float:right;">
-                <button class="button" mat-raised-button color="accent" (click)=btnToggleEditFields()>Edit</button>
+                <a class="button" mat-raised-button color="accent" (click)=btnToggleEditFields()>Edit</a>
                 </div>  
                 <div class="input-fields">
                   <mat-card-content>
                     <mat-form-field appearance="outline">
                       <mat-label>Name</mat-label>
-                      <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateName($event.target.value)" #name="ngModel" name="name" type="text" [(ngModel)]="userInfo.name">
+                      <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateName($event.target.value)" name="name" type="text" [(ngModel)]="userInfo.name">
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Username</mat-label>
@@ -74,10 +74,13 @@
               </div>
               <div class="button-fields">
                 <mat-card-actions fxLayoutAlign="center">
-                  <a class="button" [disabled]="isDisableEditFieldsAndBtns" mat-raised-button routerLink="/" color="basic">Cancel</a>
-                  <button class="button" [disabled]="isDisableEditFieldsAndBtns" [disabled]="btnfieldRequired" mat-raised-button color="warn" type="submit">Submit</button>
+                  <a class="button" [disabled]="isDisableEditFieldsAndBtns" (click)=btnCancel() mat-raised-button color="basic">Cancel</a>
+                  <button class="button" [disabled]="isDisableEditFieldsAndBtns" [disabled]="btnfieldRequired" mat-raised-button color="warn" type="submit">Save Info</button>
                 </mat-card-actions>
               </div>
+
+              <!-- Successfully Saved~! -->
+              <small [class.successfully-saved]="successfullySaved" style="display:none;">Successfuly Saved~!</small>
 
               <!-- Validation Error Msg -->
               <!-- name -->

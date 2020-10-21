@@ -21,17 +21,16 @@ export class UserAccountDetailComponent implements OnInit {
   public userAccountInfo = [];
 
   //array useraccountinfo data source
-  userAccounts:Array<UserAccount>;
+  public userAccounts:Array<UserAccount>;
 
   //toggle edit
-  isDisableEditFieldsAndBtns = false;
+  public isDisableEditFieldsAndBtns = false;
 
-  //
-  btnfieldRequired = false;
+  //btn
+  public btnfieldRequired = false;
 
-  //
-  public valRequiredName = false;
-  public valMin = false;
+  //success
+  public successfullySaved = false; 
 
   //states
   public validate = {
@@ -85,8 +84,12 @@ export class UserAccountDetailComponent implements OnInit {
     //this.router.navigate(['/user-account-list', UserAccount.id]);
     this.router.navigate(['/user-account-list', UserAccount.id, {id: UserAccount.id}], {relativeTo: this.route});
     this.getSpecificUserInfo();
+
+    //set to default states
     this.validateDefault();
     this.isDisableEditFieldsAndBtns = true;
+    this.btnfieldRequired = true;
+    this.successfullySaved = false;
   }
   
   //selected User Account
@@ -97,6 +100,32 @@ export class UserAccountDetailComponent implements OnInit {
   //btn toggle edit
   btnToggleEditFields() {
     this.isDisableEditFieldsAndBtns = !this.isDisableEditFieldsAndBtns;
+  }
+
+  btnCancel() {
+    this.getSpecificUserInfo();
+  }
+
+  btnOnSubmit() {
+    this.userAccountInfo.forEach((userInfo) => {
+      console.log('****** Successfully Saved~! *******')
+      console.log('ID: ' + userInfo.id);
+      console.log('Name: ' + userInfo.name);
+      console.log('Username: ' + userInfo.username);
+      console.log('Email: ' + userInfo.email);
+      console.log('Company Name: ' + userInfo.company.name);
+      console.log('Company Catch Phrase: ' + userInfo.company.catchPhrase);
+      console.log('Company BS: ' + userInfo.company.bs);
+      console.log('Street: ' + userInfo.address.street);
+      console.log('Suite: ' + userInfo.address.suite);
+      console.log('Zip Code: ' + userInfo.address.zipcode);
+      console.log('Phone: ' + userInfo.phone);
+      console.log('Website: ' + userInfo.website);
+      console.log('***********************************')
+
+      this.successfullySaved = true;
+    });
+
   }
 
   ngOnInit() {
@@ -115,6 +144,7 @@ export class UserAccountDetailComponent implements OnInit {
     this.getSpecificUserInfo();
 
     this.isDisableEditFieldsAndBtns = true;
+    this.btnfieldRequired = true;
   }
 
   /* Validation - Todo */
@@ -141,6 +171,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.nameReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.nameReq = false;
       //enable submit btn
@@ -148,6 +179,7 @@ export class UserAccountDetailComponent implements OnInit {
       if(value.length < 5) {
         this.validate.nameMin = true;
         this.btnfieldRequired = true;
+        this.successfullySaved = false;
       } else {
         this.validate.nameMin = false
         this.btnfieldRequired = false;
@@ -159,6 +191,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.unameReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.unameReq = false;
       //enable submit btn
@@ -166,29 +199,33 @@ export class UserAccountDetailComponent implements OnInit {
       if(value.length < 5) {
         this.validate.unameMin = true;
         this.btnfieldRequired = true;
+        this.successfullySaved = false;
       } else {
         this.validate.unameMin = false
         this.btnfieldRequired = false;
       }
     }
   }
-  
+
   validateEmail(value: string) {
     if(value.length <= 0) {     
       this.validate.emailReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.emailReq = false;
       //enable submit btn
       this.btnfieldRequired = false;
     }
   }
+
   validateCompanyName(value: string) {
     if(value.length <= 0) {     
       this.validate.companyNameReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.companyNameReq = false;
       //enable submit btn
@@ -200,6 +237,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.companyPhraseReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.companyPhraseReq = false;
       //enable submit btn
@@ -211,6 +249,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.companyBsReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.companyBsReq = false;
       //enable submit btn
@@ -222,6 +261,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.streetReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.streetReq = false;
       //enable submit btn
@@ -233,6 +273,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.suitReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.suitReq = false;
       //enable submit btn
@@ -244,6 +285,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.cityReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.cityReq = false;
       //enable submit btn
@@ -255,6 +297,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.zipcodeReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.zipcodeReq = false;
       //enable submit btn
@@ -266,6 +309,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.phoneReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.phoneReq = false;
       //enable submit btn
@@ -277,6 +321,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.validate.websiteReq = true;
       //disable submit btn
       this.btnfieldRequired = true;
+      this.successfullySaved = false;
     } else { 
       this.validate.websiteReq = false;
       //enable submit btn
