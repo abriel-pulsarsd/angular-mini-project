@@ -1,3 +1,4 @@
+/* usaer detail panel */
 .main {
   background: #ffd5b8;
   margin-bottom: 10px;
@@ -22,6 +23,7 @@
   }
 }
 
+/* list of user accounts */
 mat-list mat-list-item.selected {
   background-color:#f44336 !important;
   color:white;
@@ -31,4 +33,26 @@ mat-list mat-list-item.selected {
 mat-list .userAccountFocus {
   background-color:white;
   cursor:pointer;
+}
+
+/* user info change outline color */
+/* Border */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: green;
+}
+
+.d-none {
+  background-color:red;
+  display:none;
+}
+
+.validate-required {
+  display:block !important;
+  background-color:#e0555a;
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin:10px;
+  font-size:16px;
+  border-radius:5px;
 }
