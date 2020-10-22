@@ -13,11 +13,13 @@
   margin:10px
 }
 
+
 @media ( min-width : 600px ){
 	.flexbox {
     display: -webkit-flex;
     display: flex;
     margin:20px;
+    
 	}
   .main {
     margin: 0 10px 0 0;
@@ -114,6 +116,14 @@ mat-sidenav {
   top:0;
 }
 
+/* input form field */
+mat-form-field {
+  margin:10px;
+}
+
+mat-label {
+  color:orange;
+}
 
 /* mobile */
 .m-show-users {
@@ -151,4 +161,6 @@ mat-sidenav {
 
 .user-posts mat-list-item {
   background-color:#ffffff;
+  border-radius:5px;
+  padding:5px;
 }
