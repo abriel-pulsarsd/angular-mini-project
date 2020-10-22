@@ -25,20 +25,20 @@
 }
 
 /* list of user accounts */
-mat-list mat-list-item.selected {
+.user-account-list mat-list mat-list-item.selected {
   background-color:#f44336 !important;
   color:white;
   border-left:3px solid #000000;
 }
 
 /* list of user accounts */
-mat-list mat-list-item:hover {
+.user-account-list mat-list mat-list-item:hover {
   background-color:#f26b61 !important;
   color:white;
   border-left:3px solid #000000;
 }
 
-mat-list .userAccountFocus {
+.user-account-list mat-list .userAccountFocus {
   background-color:white;
   cursor:pointer;
 }
@@ -98,7 +98,24 @@ mat-list .userAccountFocus {
   position: relative;
 }
 
-/* */
+mat-sidenav-container {
+  height: 100%;
+  z-index:9999;
+}
+
+mat-sidenav, mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav {
+  background-color: #ffd5b8;
+  width: 280px;
+  position:fixed;
+  top:0;
+}
+
+
+/* mobile */
 .m-show-users {
   display:none;
 }
@@ -128,18 +145,10 @@ mat-list .userAccountFocus {
   }
 }
 
-mat-sidenav-container {
-  height: 100%;
-  z-index:9999;
+.user-posts mat-list {
+  margin-top:10px;
 }
 
-mat-sidenav, mat-sidenav-content {
-  padding: 16px;
-}
-
-mat-sidenav {
-  background-color: #ffd5b8;
-  width: 280px;
-  position:fixed;
-  top:0;
+.user-posts mat-list-item {
+  background-color:#ffffff;
 }
