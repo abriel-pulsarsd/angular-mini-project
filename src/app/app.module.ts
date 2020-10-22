@@ -46,6 +46,7 @@ import { UserAccountService } from './user-account.service';
 
 import { UserAccountDetailComponent } from './user-account-detail/user-account-detail.component';
 import { UserAccountListComponent } from './user-account-list/user-account-list.component';
+import { UserCreatorComponent } from './user-creator/user-creator.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { UserAccountListComponent } from './user-account-list/user-account-list.
     UserAccountListComponent,
     UserAccountDetailComponent,
     routingComponents,
+    UserCreatorComponent,
   ],
   imports: [
     BrowserModule,
