@@ -7,111 +7,126 @@
   </mat-list>
   </article>
     <section class="side">
-      <div *ngFor="let userInfo of userAccountInfo">
-        <h2>User Details</h2>
-        <form #userForm="ngForm" (ngSubmit)="btnOnSubmit()">
-          <mat-card>
-            <!-- <mat-card-title fxLayoutAlign="center">User Details</mat-card-title> -->
-              <div class="user-form">
-                <div style="float:right;">
-                <a class="button" mat-raised-button color="accent" (click)=btnToggleEditFields()>Edit</a>
-                </div>  
-                <div class="input-fields">
-                  <mat-card-content>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Name</mat-label>
-                      <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateName($event.target.value)" name="name" type="text" [(ngModel)]="userInfo.name">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Username</mat-label>
-                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateUname($event.target.value)" name="username" type="text" [(ngModel)]="userInfo.username">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Email</mat-label>
-                      <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateEmail($event.target.value)" name="email" type="email" [(ngModel)]="userInfo.email">
-                    </mat-form-field>
-                    <div ngModelGroup="company" fxLayout="column">
+      <div class="wrapper-form">
+        <div *ngFor="let userInfo of userAccountInfo">
+          <h2>User Details</h2>
+          <form #userForm="ngForm" (ngSubmit)="btnOnSubmit()">
+            <mat-card>
+              <!-- <mat-card-title fxLayoutAlign="center">User Details</mat-card-title> -->
+                <div class="user-form">
+                  <div style="float:right;">
+                  <a class="button" mat-raised-button color="accent" (click)=btnToggleEditFields()>Edit</a>
+                  </div>  
+                  <div class="input-fields">
+                    <mat-card-content>
                       <mat-form-field appearance="outline">
-                        <mat-label>Company Name</mat-label>
-                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateCompanyName($event.target.value)" name="companyName" type="text" [(ngModel)]="userInfo.company.name">
+                        <mat-label>Name</mat-label>
+                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateName($event.target.value)" name="name" type="text" [(ngModel)]="userInfo.name">
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Company Catchphrase</mat-label>
-                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateCompanyPhrase($event.target.value)" name="catchPhrase" type="text" [(ngModel)]="userInfo.company.catchPhrase">
+                          <mat-label>Username</mat-label>
+                          <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateUname($event.target.value)" name="username" type="text" [(ngModel)]="userInfo.username">
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Company BS</mat-label>
-                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateCompanyBs($event.target.value)" name="bs" type="text" [(ngModel)]="userInfo.company.bs">
+                        <mat-label>Email</mat-label>
+                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateEmail($event.target.value)" name="email" type="email" [(ngModel)]="userInfo.email">
                       </mat-form-field>
-                    </div>
-                    <div ngModelGroup="address" fxLayout="column">
+                      <div ngModelGroup="company" fxLayout="column">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Company Name</mat-label>
+                          <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateCompanyName($event.target.value)" name="companyName" type="text" [(ngModel)]="userInfo.company.name">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                          <mat-label>Company Catchphrase</mat-label>
+                          <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateCompanyPhrase($event.target.value)" name="catchPhrase" type="text" [(ngModel)]="userInfo.company.catchPhrase">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                          <mat-label>Company BS</mat-label>
+                          <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateCompanyBs($event.target.value)" name="bs" type="text" [(ngModel)]="userInfo.company.bs">
+                        </mat-form-field>
+                      </div>
+                      <div ngModelGroup="address" fxLayout="column">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Street</mat-label>
+                          <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateAddressStreet($event.target.value)" name="street" type="text" [(ngModel)]="userInfo.address.street">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                          <mat-label>Suite</mat-label>
+                          <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateAddressSuite($event.target.value)" name="suite" type="text" [(ngModel)]="userInfo.address.suite">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                          <mat-label>City</mat-label>
+                          <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateAddressCity($event.target.value)" name="city" type="text" [(ngModel)]="userInfo.address.city">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                          <mat-label>Zipcode</mat-label>
+                          <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateAddressZipcode($event.target.value)" name="zipcode" type="text" [(ngModel)]="userInfo.address.zipcode">
+                        </mat-form-field>
+                      </div>
                       <mat-form-field appearance="outline">
-                        <mat-label>Street</mat-label>
-                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateAddressStreet($event.target.value)" name="street" type="text" [(ngModel)]="userInfo.address.street">
+                        <mat-label>Phone</mat-label>
+                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validatePhone($event.target.value)" name="phone" type="tel" [(ngModel)]="userInfo.phone">
                       </mat-form-field>
                       <mat-form-field appearance="outline">
-                        <mat-label>Suite</mat-label>
-                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateAddressSuite($event.target.value)" name="suite" type="text" [(ngModel)]="userInfo.address.suite">
+                        <mat-label>Website</mat-label>
+                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateWebsite($event.target.value)" name="website" type="text" [(ngModel)]="userInfo.website">
                       </mat-form-field>
-                      <mat-form-field appearance="outline">
-                        <mat-label>City</mat-label>
-                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateAddressCity($event.target.value)" name="city" type="text" [(ngModel)]="userInfo.address.city">
-                      </mat-form-field>
-                      <mat-form-field appearance="outline">
-                        <mat-label>Zipcode</mat-label>
-                        <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateAddressZipcode($event.target.value)" name="zipcode" type="text" [(ngModel)]="userInfo.address.zipcode">
-                      </mat-form-field>
-                    </div>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Phone</mat-label>
-                      <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validatePhone($event.target.value)" name="phone" type="tel" [(ngModel)]="userInfo.phone">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Website</mat-label>
-                      <input matInput required [disabled]="isDisableEditFieldsAndBtns" (keyup)="validateWebsite($event.target.value)" name="website" type="text" [(ngModel)]="userInfo.website">
-                    </mat-form-field>
-                </mat-card-content>
+                  </mat-card-content>
+                </div>
+                <div class="button-fields">
+                  <mat-card-actions fxLayoutAlign="center">
+                    <a class="button" [disabled]="isDisableEditFieldsAndBtns" (click)=btnCancel() mat-raised-button color="basic">Cancel</a>
+                    <button class="button" [disabled]="isDisableEditFieldsAndBtns" [disabled]="btnfieldRequired" mat-raised-button color="warn" type="submit">Save Info</button>
+                  </mat-card-actions>
+                </div>
+
+                <!-- Successfully Saved~! -->
+                <small [class.successfully-saved]="successfullySaved" style="display:none;">Successfuly Saved~!</small>
+
+                <!-- Validation Error Msg -->
+                <!-- name -->
+                <small [class.validate-required]="validate.nameReq" style="display:none;">Name is required</small>
+                <small [class.validate-required]="validate.nameMin" style="display:none;">Name must be at least 5 characters</small>
+
+                <small [class.validate-required]="validate.unameReq" style="display:none;">User name is required</small>
+                <small [class.validate-required]="validate.unameMin" style="display:none;">User Name must be at least 5 characters</small>
+
+                <small [class.validate-required]="validate.emailReq" style="display:none;">Email is required</small>
+                
+                <small [class.validate-required]="validate.companyNameReq" style="display:none;">Company Name is required</small>
+                
+                <small [class.validate-required]="validate.companyPhraseReq" style="display:none;">Company Catch Phrase is required</small>
+                
+                <small [class.validate-required]="validate.companyBsReq" style="display:none;">Company BS is required</small>
+                
+                <small [class.validate-required]="validate.streetReq" style="display:none;">Street is required</small>
+                
+                <small [class.validate-required]="validate.suitReq" style="display:none;">Suite is required</small>
+                
+                <small [class.validate-required]="validate.cityReq" style="display:none;">City is required</small>
+                
+                <small [class.validate-required]="validate.zipcodeReq" style="display:none;">Zipcode is required</small>
+                
+                <small [class.validate-required]="validate.phoneReq" style="display:none;">Phone is required</small>
+                
+                <small [class.validate-required]="validate.websiteReq" style="display:none;">Website is required</small>
               </div>
-              <div class="button-fields">
-                <mat-card-actions fxLayoutAlign="center">
-                  <a class="button" [disabled]="isDisableEditFieldsAndBtns" (click)=btnCancel() mat-raised-button color="basic">Cancel</a>
-                  <button class="button" [disabled]="isDisableEditFieldsAndBtns" [disabled]="btnfieldRequired" mat-raised-button color="warn" type="submit">Save Info</button>
-                </mat-card-actions>
-              </div>
+            </mat-card>
+          </form>
+        </div>
+      </div>
+      <div class="wrapper-posts">
+        <div *ngFor="let userPost of userAccountInfoPosts">
+          <div>{{userPost.title}}</div>
+        </div>
+      </div>
+    </section>
 
-              <!-- Successfully Saved~! -->
-              <small [class.successfully-saved]="successfullySaved" style="display:none;">Successfuly Saved~!</small>
-
-              <!-- Validation Error Msg -->
-              <!-- name -->
-              <small [class.validate-required]="validate.nameReq" style="display:none;">Name is required</small>
-              <small [class.validate-required]="validate.nameMin" style="display:none;">Name must be at least 5 characters</small>
-
-              <small [class.validate-required]="validate.unameReq" style="display:none;">User name is required</small>
-              <small [class.validate-required]="validate.unameMin" style="display:none;">User Name must be at least 5 characters</small>
-
-              <small [class.validate-required]="validate.emailReq" style="display:none;">Email is required</small>
-              
-              <small [class.validate-required]="validate.companyNameReq" style="display:none;">Company Name is required</small>
-              
-              <small [class.validate-required]="validate.companyPhraseReq" style="display:none;">Company Catch Phrase is required</small>
-              
-              <small [class.validate-required]="validate.companyBsReq" style="display:none;">Company BS is required</small>
-              
-              <small [class.validate-required]="validate.streetReq" style="display:none;">Street is required</small>
-              
-              <small [class.validate-required]="validate.suitReq" style="display:none;">Suite is required</small>
-              
-              <small [class.validate-required]="validate.cityReq" style="display:none;">City is required</small>
-              
-              <small [class.validate-required]="validate.zipcodeReq" style="display:none;">Zipcode is required</small>
-              
-              <small [class.validate-required]="validate.phoneReq" style="display:none;">Phone is required</small>
-              
-              <small [class.validate-required]="validate.websiteReq" style="display:none;">Website is required</small>
-            </div>
-          </mat-card>
-        </form>
+    <section class="side">
+      <div class="map-container">
+        <div class="map-frame">
+          <div id="map" style="width:100%; height:100%;"></div>
+        </div>
       </div>
     </section>
   </div>

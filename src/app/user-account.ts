@@ -9,8 +9,8 @@ export type UserAccount = {
     city: string,
     zipcode: string,
     geo: {
-      lat: string,
-      lng: string
+      lat: number,
+      lng: number
     }
   },
   phone: string,
@@ -20,4 +20,11 @@ export type UserAccount = {
     catchPhrase: string,
     bs: string
   }
+}
+
+export type UserAccountPosts = {
+  userId: number,
+  id: number,
+  title: string,
+  body: string
 }

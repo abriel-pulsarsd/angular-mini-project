@@ -42,7 +42,6 @@ import {MatSortModule} from '@angular/material/sort'; //import sorting data Tabl
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {LayoutModule} from '@angular/cdk/layout';
 
-
 import { UserAccountService } from './user-account.service';
 
 import { UserAccountDetailComponent } from './user-account-detail/user-account-detail.component';
@@ -54,7 +53,7 @@ import { UserAccountListComponent } from './user-account-list/user-account-list.
     AppComponent,
     UserAccountListComponent,
     UserAccountDetailComponent,
-    routingComponents
+    routingComponents,
   ],
   imports: [
     BrowserModule,

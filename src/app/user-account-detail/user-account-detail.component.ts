@@ -1,31 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserAccountService } from '../user-account.service';
 import { UserAccount } from '../user-account';
+import { UserAccountPosts } from '../user-account';
 import { map } from 'rxjs/operators';
+import  * as L from 'leaflet';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-user-account-detail',
   templateUrl: './user-account-detail.component.html',
   styleUrls: ['./user-account-detail.component.css']
 })
-export class UserAccountDetailComponent implements OnInit {
+export class UserAccountDetailComponent implements OnInit, AfterViewInit {
 
   //id for routing
   public selectedId;
 
   //specific useraccountinfo
   public userAccountInfo = [];
+  public userAccountInfoPosts = [];
 
-  //array useraccountinfo data source
+  //array useraccountinfo & posts
   public userAccounts:Array<UserAccount>;
+  public userAccountPosts:Array<UserAccountPosts>;
 
   //toggle edit
   public isDisableEditFieldsAndBtns = false;
-
+  
   //btn
   public btnfieldRequired = false;
 
@@ -62,17 +64,69 @@ export class UserAccountDetailComponent implements OnInit {
     websiteReq: false,
   }
 
-  constructor(private _userAccountService: UserAccountService, private router: Router, private route: ActivatedRoute) { 
+  //leaflet map
+  private map; 
+
+  constructor(
+    private _userAccountService: UserAccountService, 
+    private router: Router, 
+    private route: ActivatedRoute
+    ) { 
     this.userAccounts = new Array<UserAccount>();
+    this.userAccountPosts = new Array<UserAccountPosts>();
+  }
+
+  ngOnInit() {
+    //routing
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      let id = parseInt(params.get('id'));
+      this.selectedId = id;
+      //console.log(this.selectedId = id);
+    });
+
+    //fetch useraccounts info
+    this._userAccountService.getUserAccounts().subscribe((data) => {
+      this.userAccounts = data;
+    });
+    
+    this.getSpecificUserInfo();
+    this.getSpecificUserInfoPosts();
+
+    this.isDisableEditFieldsAndBtns = true;
+    this.btnfieldRequired = true;
+  }
+
+  ngAfterViewInit() {
+    //lmap
+    this.initMap(51.505, -0.09);
   }
 
   //get specific useraccount info
-  getSpecificUserInfo() {
+  private getSpecificUserInfo() {
     this._userAccountService.getUserAccounts()
     .pipe(map(data => {
       return data.find(data => this.selectedId === data.id);
     })).subscribe(data => {
       this.userAccountInfo = [data];
+      //lmap
+      this.userAccountInfo.forEach((lmap) => {
+        //this.initMap(51.505, -0.09);
+        this.userMap(lmap.address.geo.lat, lmap.address.geo.lng);
+      });
+    });
+  }
+
+  //get specific useraccount info posts
+  private getSpecificUserInfoPosts() {
+    this._userAccountService.getUserAccountPosts()
+    .pipe(map(data => {
+      return data.find(data => this.selectedId === data.id);
+    })).subscribe(data => {
+      this.userAccountInfoPosts = [data];
+      this.userAccountInfoPosts.forEach((post) => {
+        console.log(post.userId);
+        console.log(post.title);
+      });
     });
   }
 
@@ -80,12 +134,14 @@ export class UserAccountDetailComponent implements OnInit {
   * Routing 
   */
   //on select User Account
-  onSelect(UserAccount) {
+  public onSelect(UserAccount) {
     //this.router.navigate(['/user-account-list', UserAccount.id]);
     this.router.navigate(['/user-account-list', UserAccount.id, {id: UserAccount.id}], {relativeTo: this.route});
-    this.getSpecificUserInfo();
 
-    //set to default states
+    this.getSpecificUserInfo();
+    this.getSpecificUserInfoPosts();
+
+    //validation set to default states
     this.validateDefault();
     this.isDisableEditFieldsAndBtns = true;
     this.btnfieldRequired = true;
@@ -93,20 +149,21 @@ export class UserAccountDetailComponent implements OnInit {
   }
   
   //selected User Account
-  isSelected(UserAccount) {
+  public isSelected(UserAccount) {
     return UserAccount.id === this.selectedId;
   }
 
   //btn toggle edit
-  btnToggleEditFields() {
+  public btnToggleEditFields() {
     this.isDisableEditFieldsAndBtns = !this.isDisableEditFieldsAndBtns;
   }
 
-  btnCancel() {
+  //btn cancel
+  public btnCancel() {
     this.getSpecificUserInfo();
   }
 
-  btnOnSubmit() {
+  public btnOnSubmit() {
     this.userAccountInfo.forEach((userInfo) => {
       console.log('****** Successfully Saved~! *******')
       console.log('ID: ' + userInfo.id);
@@ -128,28 +185,28 @@ export class UserAccountDetailComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    //routing
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      let id = parseInt(params.get('id'));
-      this.selectedId = id;
-      //console.log(this.selectedId = id);
-    });
-
-    //fetch useraccounts info
-    this._userAccountService.getUserAccounts().subscribe((data) => {
-      this.userAccounts = data;
-    });
+  private userMap(geoLat: number, geoLng: number): void { 
+    this.map.setView([geoLat, geoLng], 15);
     
-    this.getSpecificUserInfo();
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 15,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
 
-    this.isDisableEditFieldsAndBtns = true;
-    this.btnfieldRequired = true;
+    L.marker([geoLat, geoLng]).addTo(this.map)
+    .bindPopup(geoLat + ' ' + geoLng)
+    .openPopup();
+
+    tiles.addTo(this.map);
+  }
+
+  private initMap(geoLat: number, geoLng: number): void {
+    this.map = L.map('map').setView([geoLat, geoLng], 15);
+    this.userMap(geoLat, geoLng);
   }
 
   /* Validation - Todo */
-
-  validateDefault() {
+  private validateDefault() {
     this.validate.nameReq = false;
     this.validate.nameMin = false;
     this.validate.unameReq = false;
@@ -166,7 +223,7 @@ export class UserAccountDetailComponent implements OnInit {
     this.validate.websiteReq = false;
   }
 
-  validateName(value: string) {
+  public validateName(value: string) {
     if(value.length <= 0) {     
       this.validate.nameReq = true;
       //disable submit btn
@@ -186,7 +243,7 @@ export class UserAccountDetailComponent implements OnInit {
       }
     }
   }
-  validateUname(value: string) {
+  public validateUname(value: string) {
     if(value.length <= 0) {     
       this.validate.unameReq = true;
       //disable submit btn
@@ -207,7 +264,7 @@ export class UserAccountDetailComponent implements OnInit {
     }
   }
 
-  validateEmail(value: string) {
+  public validateEmail(value: string) {
     if(value.length <= 0) {     
       this.validate.emailReq = true;
       //disable submit btn
@@ -220,7 +277,7 @@ export class UserAccountDetailComponent implements OnInit {
     }
   }
 
-  validateCompanyName(value: string) {
+  public validateCompanyName(value: string) {
     if(value.length <= 0) {     
       this.validate.companyNameReq = true;
       //disable submit btn
@@ -232,7 +289,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.btnfieldRequired = false;
     }
   }
-  validateCompanyPhrase(value: string) {
+  public validateCompanyPhrase(value: string) {
     if(value.length <= 0) {     
       this.validate.companyPhraseReq = true;
       //disable submit btn
@@ -244,7 +301,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.btnfieldRequired = false;
     }
   }
-  validateCompanyBs(value: string) {
+  public validateCompanyBs(value: string) {
     if(value.length <= 0) {     
       this.validate.companyBsReq = true;
       //disable submit btn
@@ -256,7 +313,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.btnfieldRequired = false;
     }
   }
-  validateAddressStreet(value: string) {
+  public  validateAddressStreet(value: string) {
     if(value.length <= 0) {     
       this.validate.streetReq = true;
       //disable submit btn
@@ -268,7 +325,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.btnfieldRequired = false;
     }
   }
-  validateAddressSuite(value: string) {
+  public validateAddressSuite(value: string) {
     if(value.length <= 0) {     
       this.validate.suitReq = true;
       //disable submit btn
@@ -280,7 +337,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.btnfieldRequired = false;
     }
   }
-  validateAddressCity(value: string) {
+  public validateAddressCity(value: string) {
     if(value.length <= 0) {     
       this.validate.cityReq = true;
       //disable submit btn
@@ -292,7 +349,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.btnfieldRequired = false;
     }
   }
-  validateAddressZipcode(value: string) {
+  public validateAddressZipcode(value: string) {
     if(value.length <= 0) {     
       this.validate.zipcodeReq = true;
       //disable submit btn
@@ -304,7 +361,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.btnfieldRequired = false;
     }
   }
-  validatePhone(value: string) {
+  public validatePhone(value: string) {
     if(value.length <= 0) {     
       this.validate.phoneReq = true;
       //disable submit btn
@@ -316,7 +373,7 @@ export class UserAccountDetailComponent implements OnInit {
       this.btnfieldRequired = false;
     }
   }
-  validateWebsite(value: string) {
+  public validateWebsite(value: string) {
     if(value.length <= 0) {     
       this.validate.websiteReq = true;
       //disable submit btn
