@@ -9,8 +9,10 @@
     <section class="side m-user-specific">
       <div class="wrapper-form">
         <div *ngFor="let userInfo of userAccountInfo">
-          <h2>User Details</h2> 
-          <button (click)="opened=!opened">Toggle Opened</button>
+          
+          <div class="m-show-users" style="float:right;"><a class="button" mat-raised-button color="warn" (click)="opened=!opened">Show Users</a></div>
+          <h2>User Details</h2>
+
           <form #userForm="ngForm" (ngSubmit)="btnOnSubmit()">
             <mat-card>
               <!-- <mat-card-title fxLayoutAlign="center">User Details</mat-card-title> -->
@@ -134,14 +136,17 @@
 
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened">Sidenav
-    <div style="margin-top:10px;">
-      <div>Home</div>
-      <div>About</div>
-      <div>Services</div>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened"><h2>Users Accounts</h2>
+    <div class="m-user-accounts">
+      <mat-list *ngFor="let userInfo of userAccounts">
+        <mat-list-item (click)="onSelect(userInfo)" [class.selected]="isSelected(userInfo)" class="userAccountFocus">{{userInfo.name}}</mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
     </div>
   </mat-sidenav>
 </mat-sidenav-container>
+
+
 
 
 

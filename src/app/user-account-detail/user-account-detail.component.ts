@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserAccountService } from '../user-account.service';
 import { UserAccount } from '../user-account';
 import { UserAccountPosts } from '../user-account';
-import { filter, map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import  * as L from 'leaflet';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -67,7 +67,8 @@ export class UserAccountDetailComponent implements OnInit, AfterViewInit {
   //leaflet map
   private map; 
 
-  opened = false;
+  //
+  public opened = false;
 
   constructor(
     private _userAccountService: UserAccountService, 
@@ -150,6 +151,7 @@ export class UserAccountDetailComponent implements OnInit, AfterViewInit {
     this.isDisableEditFieldsAndBtns = true;
     this.btnfieldRequired = true;
     this.successfullySaved = false;
+    this.opened = false;
   }
   
   //selected User Account

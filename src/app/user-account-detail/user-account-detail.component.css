@@ -31,6 +31,13 @@ mat-list mat-list-item.selected {
   border-left:3px solid #000000;
 }
 
+/* list of user accounts */
+mat-list mat-list-item:hover {
+  background-color:#f26b61 !important;
+  color:white;
+  border-left:3px solid #000000;
+}
+
 mat-list .userAccountFocus {
   background-color:white;
   cursor:pointer;
@@ -76,7 +83,7 @@ mat-list .userAccountFocus {
   left: 0;
   right: 0;
   bottom: 0;
-  margin: 30px;
+  margin: 8px;
   position:static !important;
 }
 
@@ -92,15 +99,38 @@ mat-list .userAccountFocus {
 }
 
 /* */
+.m-show-users {
+  display:none;
+}
+.m-user-accounts {
+  overflow: hidden;
+}
 @media only screen and (max-width: 1300px) {
-   .m-user-list {
+  .m-user-list {
     display:none;
+  }
+
+  .m-show-users {
+    display:block;
   }
 }
 
+@media only screen and (max-width: 900px) {
+  .map-frame {
+    width:400px;
+    height:400px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .map-frame {
+    width:300px;
+    height:300px;
+  }
+}
 
 mat-sidenav-container {
   height: 100%;
+  z-index:9999;
 }
 
 mat-sidenav, mat-sidenav-content {
@@ -108,8 +138,8 @@ mat-sidenav, mat-sidenav-content {
 }
 
 mat-sidenav {
-  background-color: lightcoral;
-  width: 250px;
+  background-color: #ffd5b8;
+  width: 280px;
   position:fixed;
   top:0;
 }
