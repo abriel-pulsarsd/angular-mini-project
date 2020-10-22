@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserAccountService } from '../user-account.service';
 import { UserAccount } from '../user-account';
 import { UserAccountPosts } from '../user-account';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import  * as L from 'leaflet';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -67,6 +67,8 @@ export class UserAccountDetailComponent implements OnInit, AfterViewInit {
   //leaflet map
   private map; 
 
+  opened = false;
+
   constructor(
     private _userAccountService: UserAccountService, 
     private router: Router, 
@@ -104,10 +106,13 @@ export class UserAccountDetailComponent implements OnInit, AfterViewInit {
   //get specific useraccount info
   private getSpecificUserInfo() {
     this._userAccountService.getUserAccounts()
-    .pipe(map(data => {
-      return data.find(data => this.selectedId === data.id);
+    .pipe(map(userAccounts => {
+      return userAccounts.filter(
+        //return data.find(data => this.selectedId === data.userId);
+        userAccount => userAccount.id === this.selectedId
+      )
     })).subscribe(data => {
-      this.userAccountInfo = [data];
+      this.userAccountInfo = data;
       //lmap
       this.userAccountInfo.forEach((lmap) => {
         //this.initMap(51.505, -0.09);
@@ -119,14 +124,13 @@ export class UserAccountDetailComponent implements OnInit, AfterViewInit {
   //get specific useraccount info posts
   private getSpecificUserInfoPosts() {
     this._userAccountService.getUserAccountPosts()
-    .pipe(map(data => {
-      return data.find(data => this.selectedId === data.id);
-    })).subscribe(data => {
-      this.userAccountInfoPosts = [data];
-      this.userAccountInfoPosts.forEach((post) => {
-        console.log(post.userId);
-        console.log(post.title);
-      });
+    .pipe(map(posts => {
+      return posts.filter(
+        post => post.userId === this.selectedId
+      )
+    })).subscribe(selectedUserPosts => {
+      this.userAccountInfoPosts = selectedUserPosts;
+      console.log(this.userAccountInfoPosts);
     });
   }
 

@@ -90,3 +90,26 @@ mat-list .userAccountFocus {
   height:100%;
   position: relative;
 }
+
+/* */
+@media only screen and (max-width: 1300px) {
+   .m-user-list {
+    display:none;
+  }
+}
+
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav, mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav {
+  background-color: lightcoral;
+  width: 250px;
+  position:fixed;
+  top:0;
+}
